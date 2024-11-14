@@ -1,0 +1,214 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Game {
+
+    JFrame gameWindow;
+    Container con;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel;
+    JLabel titleNameLabel;
+    Font titleFont = new Font("Times New Roman", Font.PLAIN, 70);
+    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+    JButton startButton, choice1, choice2, choice3, choice4;
+    JTextArea mainTextArea;
+    String position;
+
+    TitleScreenHandler tsHandler = new TitleScreenHandler();
+    ChoiceHandler choiceHandler = new ChoiceHandler();
+
+    public static void main(String[] args) {
+        new Game();
+    }
+
+    public Game() {
+        // Setting up JFrame window
+        gameWindow = new JFrame();
+        gameWindow.setSize(800, 600);
+        gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameWindow.getContentPane().setBackground(Color.BLACK);
+        gameWindow.setLayout(null);
+        gameWindow.setVisible(true);
+        con = gameWindow.getContentPane();
+
+        titleNamePanel = new JPanel();
+        titleNamePanel.setBounds(100, 100, 600, 150);
+        titleNamePanel.setBackground(Color.black);
+        titleNameLabel = new JLabel("Congrats You Died!");
+        titleNameLabel.setForeground(Color.white);
+        titleNameLabel.setFont(titleFont);
+
+        startButtonPanel = new JPanel();
+        startButtonPanel.setBounds(300, 400, 200, 100);
+        startButtonPanel.setBackground(Color.black);
+
+        startButton = new JButton("START");
+        startButton.setBackground(Color.black);
+        startButton.setForeground(Color.white);
+        startButton.setFont(normalFont);
+        startButton.addActionListener(tsHandler);
+        startButton.setFocusPainted(false);
+
+        titleNamePanel.add(titleNameLabel);
+        startButtonPanel.add(startButton);
+
+        con.add(titleNamePanel);
+        con.add(startButtonPanel);
+    }
+
+    public void createGameScreen() {
+        titleNamePanel.setVisible(false);
+        startButtonPanel.setVisible(false);
+
+        mainTextPanel = new JPanel();
+        mainTextPanel.setBounds(100, 100, 600, 250);
+        mainTextPanel.setBackground(Color.black);
+        con.add(mainTextPanel);
+
+        mainTextArea = new JTextArea("Finally decided to kick the bucket huh? " +
+                "\nWhat's the last thing you remember?");
+        mainTextArea.setBounds(100, 100, 600, 250);
+        mainTextArea.setBackground(Color.black);
+        mainTextArea.setForeground(Color.white);
+        mainTextArea.setFont(normalFont);
+        mainTextArea.setLineWrap(true);
+        mainTextPanel.add(mainTextArea);
+
+        choiceButtonPanel = new JPanel();
+        choiceButtonPanel.setBounds(250, 350, 300, 150);
+        choiceButtonPanel.setBackground(Color.black);
+        choiceButtonPanel.setLayout(new GridLayout(4, 1));
+        con.add(choiceButtonPanel);
+
+        choice1 = new JButton("Taking a fake perc");
+        choice1.setBackground(Color.black);
+        choice1.setForeground(Color.white);
+        choice1.setFont(normalFont);
+        choice1.setFocusPainted(false);
+        choice1.addActionListener(choiceHandler);
+        choice1.setActionCommand("c1");
+        choiceButtonPanel.add(choice1);
+
+        choice2 = new JButton("Playing with a gun");
+        choice2.setBackground(Color.black);
+        choice2.setForeground(Color.white);
+        choice2.setFont(normalFont);
+        choice2.setFocusPainted(false);
+        choice2.addActionListener(choiceHandler);
+        choice2.setActionCommand("c2");
+        choiceButtonPanel.add(choice2);
+
+        choice3 = new JButton("Going to a Diddy Party");
+        choice3.setBackground(Color.black);
+        choice3.setForeground(Color.white);
+        choice3.setFont(normalFont);
+        choice3.setFocusPainted(false);
+        choice3.addActionListener(choiceHandler);
+        choice3.setActionCommand("c3");
+        choiceButtonPanel.add(choice3);
+
+        choice4 = new JButton("Can't remember");
+        choice4.setBackground(Color.black);
+        choice4.setForeground(Color.white);
+        choice4.setFont(normalFont);
+        choice4.setFocusPainted(false);
+        choice4.addActionListener(choiceHandler);
+        choice4.setActionCommand("c4");
+        choiceButtonPanel.add(choice4);
+    }
+
+    public void openingGame() {
+        position = "openingGame";
+        mainTextArea.setText("Finally decided to kick the bucket huh? " +
+                "\nWhat's the last thing you remember?");
+        choice1.setText("Taking a fake perc");
+        choice2.setText("Russian roulette");
+        choice3.setText("Drinks with Diddy");
+        choice4.setText("I can't remember");
+    }
+
+    public void fakePerc() {
+        position = "fakePerc";
+        mainTextArea.setText("You knew the perc was fake, but still ate it " +
+                "\nbecause you're a gremlin....");
+        choice1.setText("My bad Unc");
+        choice2.setText("I didn't know it was fake");
+        choice3.setText("I'd do it again too.");
+        choice4.setText("Next time, real one.");
+    }
+
+    public void gunPlay() {
+        position = "gunPlay";
+        mainTextArea.setText("You lost the game of Russian roulette huh?");
+        choice1.setText("My parlay lost");
+        choice2.setText("Fun while it lasted");
+        choice3.setText("Worth it.");
+        choice4.setText("Lesson learned?");
+    }
+
+    public void drinksWithDiddy() {
+        position = "drinksWithDiddy";
+        mainTextArea.setText("You thought you could keep up with Diddy? Big mistake.");
+        choice1.setText("The Diddler got me");
+        choice2.setText("50 Cent warned me");
+        choice3.setText("I was living large");
+        choice4.setText("Let’s go again");
+    }
+
+    public void dontRemember() {
+        position = "dontRemember";
+        mainTextArea.setText("Can't remember? Guess it was wild.");
+        choice1.setText("Sounds like me");
+        choice2.setText("Selective memory");
+        choice3.setText("It be like that");
+        choice4.setText("Had too many drinks");
+    }
+
+    public void endGame() {
+        position = "endGame";
+        mainTextArea.setText("Well, that was fun. If you didn't enjoy the life \nyou lived, " +
+                "wanna try again?");
+        choice1.setText("Yes, restart.");
+        choice2.setText("Nah, I'm done.");
+        choice3.setVisible(false); // Hide extra buttons for end screen
+        choice4.setVisible(false);
+    }
+
+    public class TitleScreenHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            createGameScreen();
+            openingGame();
+        }
+    }
+
+    public class ChoiceHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            String yourChoice = event.getActionCommand();
+            switch (position) {
+                case "openingGame":
+                    switch (yourChoice) {
+                        case "c1": fakePerc(); break;
+                        case "c2": gunPlay(); break;
+                        case "c3": drinksWithDiddy(); break;
+                        case "c4": dontRemember(); break;
+                    }
+                    break;
+                case "fakePerc":
+                case "gunPlay":
+                case "drinksWithDiddy":
+                case "dontRemember":
+                    endGame(); // After second choice, end game
+                    break;
+                case "endGame":
+                    if (yourChoice.equals("c1")) {
+                        gameWindow.dispose(); // Restart game
+                        new Game();
+                    } else if (yourChoice.equals("c2")) {
+                        System.exit(0); // Quit game
+                    }
+                    break;
+            }
+        }
+    }
+}
