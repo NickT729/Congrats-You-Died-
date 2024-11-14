@@ -1,2 +1,4 @@
 # Congrats-You-Died-
-Java Videogame for fun to help me learn/retain stuff from class 
+Videogame I made for fun in Java based on what I've learned in class.
+FOR HUMOR/RESEARCH PURPOSES ONLY
+:3 
